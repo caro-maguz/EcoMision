@@ -1,0 +1,30 @@
+{
+  "name": "ecomision",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/caro-maguz/EcoMision#readme",
+  "bugs": {
+    "url": "https://github.com/caro-maguz/EcoMision/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caro-maguz/EcoMision.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "connect-multiparty": "^2.2.0",
+    "express": "^5.2.1",
+    "mongoose": "^9.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
