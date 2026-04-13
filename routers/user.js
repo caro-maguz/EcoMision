@@ -5,7 +5,10 @@ var UserController = require('../controllers/user');
 
 var router = express.Router();
 
-router.get('/users', UserController.getUsers);
-router.get('/user/:id', UserController.getUser);
+router.get('/users', UserController.getUsers);          //LISTARTODOS
+router.get('/user/:id', UserController.getUser);        //LISTARID
+router.put('/user/:id', UserController.updateUser);     // UPDATE
+router.delete('/user/:id', UserController.deleteUser);  // DELETE
+router.post('/user', UserController.createUser);        // CREATE
 
 module.exports = router;

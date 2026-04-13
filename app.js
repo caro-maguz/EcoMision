@@ -5,24 +5,23 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-/* =========================
-   CARGAR RUTAS
-========================= */
+
+   //CARGAR RUTAS 
 var userRoutes = require('./routers/user');
 var treeRoutes = require('./routers/tree');
 var historyRoutes = require('./routers/history');
 var quizResultRoutes = require('./routers/quiz_result');
 var challengeRoutes = require('./routers/challenge');
 
-/* =========================
-   MIDDLEWARES
-========================= */
+
+   // MIDDLEWARES
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-/* =========================
-   CORS
-========================= */
+
+   // CORS
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -34,25 +33,23 @@ app.use((req, res, next) => {
     next();
 });
 
-/* =========================
-   RUTAS BASE
-========================= */
+
+   //RUTAS BASE
 app.use('/api', userRoutes);
 app.use('/api', treeRoutes);
 app.use('/api', historyRoutes);
 app.use('/api', quizResultRoutes);
 app.use('/api', challengeRoutes);
 
-/* =========================
-   RUTA DE PRUEBA
-========================= */
+
+  // RUTA DE PRUEBA
+
 app.get('/test', (req, res) => {
     res.status(200).send({
         message: 'EcoMision API funcionando correctamente ✅'
     });
 });
 
-/* =========================
-   EXPORTAR APP
-========================= */
+
+   // EXPORTAR APP
 module.exports = app;

@@ -37,8 +37,60 @@ var getTreesByUser = (req, res) => {
         });
 };
 
-module.exports = {
+// CREATE – Crear árbol
+var createTree = (req, res) => {
+    var tree = new Tree(req.body);
+
+    tree.save()
+        .then(treeStored => {
+            res.status(201).send({ tree: treeStored });
+        })
+        .catch(err => {
+            res.status(500).send({ message: 'Error al crear árbol' });
+        });
+};
+
+
+// UPDATE – Actualizar árbol
+var updateTree = (req, res) => {
+    var treeId = req.params.id;
+    var update = req.body;
+
+    Tree.findByIdAndUpdate(treeId, update, { new: true })
+        .then(treeUpdated => {
+            if (!treeUpdated) {
+                return res.status(404).send({ message: 'Árbol no encontrado' });
+            }
+            res.status(200).send({ tree: treeUpdated });
+        })
+        .catch(err => {
+            res.status(500).send({ message: 'Error al actualizar árbol' });
+        });
+};
+
+// DELETE – Eliminar árbol 
+var deleteTree = (req, res) => {
+    var treeId = req.params.id;
+
+    Tree.findByIdAndDelete(treeId)
+        .then(treeRemoved => {
+            if (!treeRemoved) {
+                return res.status(404).send({ message: 'Árbol no encontrado' });
+            }
+            res.status(200).send({ message: 'Árbol eliminado correctamente' });
+        })
+        .catch(err => {
+            res.status(500).send({ message: 'Error al eliminar árbol' });
+        });
+};
+
+
+module.exports = { 
     getTrees,
     getVisibleTrees,
-    getTreesByUser
+    getTreesByUser,
+    createTree,
+    updateTree,
+    deleteTree
+
 };
