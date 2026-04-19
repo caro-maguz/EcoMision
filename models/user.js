@@ -17,8 +17,17 @@ var SettingsSchema = Schema({
 }, { _id: false });
 
 var UserSchema = Schema({
-    name: String,
-    email: String,
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true
+    },
     password_hash: String,
     created_at: {
         type: Date,
@@ -28,6 +37,5 @@ var UserSchema = Schema({
     settings: SettingsSchema,
     first_quiz_completed: Boolean
 });
-
 module.exports = mongoose.model('User', UserSchema);
 // users
