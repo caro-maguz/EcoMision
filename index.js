@@ -1,17 +1,19 @@
-'use strict'
+'use strict';
 
-var mongoose = require('mongoose');
-var app = require('./app');
-var port = 3700;
+require("dotenv").config();
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/EcoMision')
-    .then(() => {
-        console.log('Conexión a la base de datos exitosa');
+const mongoose = require("mongoose");
+const app = require("./app");
 
-        // creación del servidor 
-        app.listen(port, () => {
-            console.log('Servidor funciona correctamente en el puerto ' + port);
-        });
-    })
-    .catch(err => console.log(err));
+const PORT = process.env.PORT || 3000;
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("✅ MongoDB Atlas conectado");
+    app.listen(PORT, () => {
+      console.log(`✅ Servidor corriendo en puerto ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error("❌ Error conectando a MongoDB:", err);
+  });

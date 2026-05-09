@@ -5,9 +5,7 @@ var History = require('../models/history');
 var User = require('../models/user');
 var mongoose = require('mongoose');
 
-/* =========================
-   READ – Todos los desafíos
-========================= */
+//    READ – Todos los desafíos
 var getChallenges = (req, res) => {
     Challenge.find()
         .then(challenges => {
@@ -18,9 +16,7 @@ var getChallenges = (req, res) => {
         });
 };
 
-/* =========================
-   READ – Desafíos activos
-========================= */
+  // READ – Desafíos activos
 var getActiveChallenges = (req, res) => {
     Challenge.find({ active: true })
         .then(challenges => {
@@ -31,9 +27,7 @@ var getActiveChallenges = (req, res) => {
         });
 };
 
-/* =========================
-   READ – Desafíos por categoría
-========================= */
+//    READ – Desafíos por categoría
 var getChallengesByCategory = (req, res) => {
     var category = req.params.category;
 
@@ -46,9 +40,7 @@ var getChallengesByCategory = (req, res) => {
         });
 };
 
-/* =========================
-   CREATE – Crear desafío
-========================= */
+//  CREATE – Crear desafío
 var createChallenge = (req, res) => {
     var challenge = new Challenge(req.body);
 
@@ -61,9 +53,7 @@ var createChallenge = (req, res) => {
         });
 };
 
-/* =========================
-   UPDATE – Actualizar desafío
-========================= */
+// UPDATE – Actualizar desafío
 var updateChallenge = (req, res) => {
     var challengeId = req.params.id;
 
@@ -83,9 +73,7 @@ var updateChallenge = (req, res) => {
     });
 };
 
-/* =========================
-   DELETE – Eliminar desafío
-========================= */
+//    DELETE – Eliminar desafío
 var deleteChallenge = (req, res) => {
     var challengeId = req.params.id;
 
@@ -101,9 +89,7 @@ var deleteChallenge = (req, res) => {
         });
 };
 
-/* =========================
-   RETO DIARIO
-========================= */
+//   RETO DIARIO
 var getDailyChallenge = async (req, res) => {
     try {
         var userId = req.params.userId;
@@ -216,9 +202,7 @@ var completeChallenge = async (req, res) => {
         });
     }
 };
-/* =========================
-   EXPORTS
-========================= */
+
 module.exports = {
     getChallenges,
     getActiveChallenges,
