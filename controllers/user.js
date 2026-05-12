@@ -35,7 +35,7 @@ var getUser = (req, res) => {
 // REGISTER – Crear usuario con contraseña segura
 var createUser = (req, res) => {
     var data = req.body;
-
+    console.log('🟢 VERSION NUEVA createUser ACTIVA', req.body);
     // Validación fuerte
     if (
         !data.email ||
