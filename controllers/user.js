@@ -36,14 +36,26 @@ var getUser = (req, res) => {
 var createUser = (req, res) => {
     var data = req.body;
 
-    // Validar campos mínimos
-    if (!data.email || !data.password) {
+    // Validación fuerte
+    if (
+        !data.email ||
+        !data.password ||
+        data.email.trim() === '' ||
+        data.password.trim() === ''
+    ) {
         return res.status(400).send({
             message: 'Correo y contraseña son obligatorios'
         });
     }
 
-    // Verificar si el correo ya existe
+    // Validar formato del correo
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+        return res.status(400).send({
+            message: 'El correo no tiene un formato válido'
+        });
+    }
+
     User.findOne({ email: data.email })
         .then(userFound => {
             if (userFound) {
@@ -52,26 +64,24 @@ var createUser = (req, res) => {
                 });
             }
 
-            // Encriptar contraseña
             var user = new User({
                 name: data.name,
-                email: data.email,
+                email: data.email.trim().toLowerCase(),
                 password_hash: bcrypt.hashSync(data.password, 10),
                 first_quiz_completed: false
             });
 
-            user.save()
-                .then(userStored => {
-                    res.status(201).send({
-                        message: 'Usuario registrado correctamente'
-                    });
-                })
-                .catch(err => {
-                    res.status(500).send({ message: 'Error al crear usuario' });
-                });
+            return user.save();
+        })
+        .then(() => {
+            res.status(201).send({
+                message: 'Usuario registrado correctamente'
+            });
         })
         .catch(err => {
-            res.status(500).send({ message: 'Error en la validación' });
+            res.status(500).send({
+                message: 'Error al crear usuario'
+            });
         });
 };
 
