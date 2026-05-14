@@ -40,6 +40,8 @@ var createUser = (req, res) => {
     if (
         !data.email ||
         !data.password ||
+        typeof data.email !== 'string' ||
+        typeof data.password !== 'string' ||
         data.email.trim() === '' ||
         data.password.trim() === ''
     ) {
@@ -47,6 +49,7 @@ var createUser = (req, res) => {
             message: 'Correo y contraseña son obligatorios'
         });
     }
+
 
     // Validar formato del correo
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
