@@ -158,6 +158,7 @@ var completeChallenge = async (req, res) => {
             impact_registered: challenge.impact,
             challenge_snapshot: {
                 title: challenge.title,
+                description: challenge.description,   // ✅ agregar descripción
                 category: challenge.category,
                 icon: challenge.icon
             }
